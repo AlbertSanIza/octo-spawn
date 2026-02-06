@@ -5,6 +5,7 @@
         "esbenp.prettier-vscode",
         "pkief.material-icon-theme",
         "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
         "tauri-apps.tauri-vscode"
     ]
 }
