@@ -1,5 +1,6 @@
 {
     "recommendations": [
+        "anthropic.claude-code",
         "chakrounanas.turbo-console-log",
         "esbenp.prettier-vscode",
         "pkief.material-icon-theme",
