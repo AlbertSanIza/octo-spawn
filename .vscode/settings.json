@@ -1,5 +1,9 @@
 {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
+    "editor.quickSuggestions": {
+        "strings": "on"
+    },
+    "files.insertFinalNewline": true,
     "workbench.iconTheme": "material-icon-theme"
 }
