@@ -1,6 +1,6 @@
 # 🐙 Octo-Spawn
 
-macOS menubar app to spawn multiple GitHub Desktop windows.
+A simple MacOS menubar app to spawn multiple GitHub Desktop windows.
 
 ## What is this?
 
