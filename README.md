@@ -14,11 +14,9 @@ GitHub Desktop doesn't natively support opening multiple windows. Octo-Spawn sol
 - **Vanilla JS** - Simple, no frameworks needed
 - **Bun** - Fast package manager
 ### Prerequisites
-
 - [Rust](https://www.rust-lang.org/tools/install)
 - [Bun](https://bun.sh)
 - macOS (for menubar functionality)
-
 ## Setup
 
 ```bash
