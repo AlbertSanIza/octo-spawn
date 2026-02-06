@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "tauri-app",
+      "name": "octo-spawn",
       "devDependencies": {
         "@tauri-apps/cli": "^2",
       },
