@@ -40,7 +40,3 @@ bun install
 - [ ] Add preferences/settings
 - [ ] Support multiple repo quick-launch buttons
 - [ ] Add keyboard shortcuts
-
-## License
-
-MIT
