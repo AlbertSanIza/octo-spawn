@@ -27,17 +27,10 @@ GitHub Desktop doesn't natively support opening multiple windows. Octo-Spawn sol
 - [Bun](https://bun.sh)
 - macOS (for menubar functionality)
 
-### Setup
+## Setup
 
 ```bash
-# Install dependencies
 bun install
-
-# Run in dev mode
-bun run tauri dev
-
-# Build for production
-bun run tauri build
 ```
 
 ## TODO
