@@ -1,84 +1,84 @@
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  font-weight: 400;
-  
-  color: #213547;
-  background-color: #ffffff;
-  
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color: #213547;
+    background-color: #ffffff;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 .container {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 h2 {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0;
-  text-align: center;
-  color: #1a1a1a;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+    color: #1a1a1a;
 }
 
 .buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .action-btn {
-  padding: 8px 16px;
-  background: #0969da;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s ease;
+    padding: 8px 16px;
+    background: #0969da;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease;
 }
 
 .action-btn:hover {
-  background: #0860ca;
+    background: #0860ca;
 }
 
 .action-btn:active {
-  background: #0757ba;
-  transform: scale(0.98);
+    background: #0757ba;
+    transform: scale(0.98);
 }
 
 #status {
-  font-size: 12px;
-  color: #656d76;
-  text-align: center;
-  min-height: 16px;
+    font-size: 12px;
+    color: #656d76;
+    text-align: center;
+    min-height: 16px;
 }
 
 #status.success {
-  color: #1a7f37;
+    color: #1a7f37;
 }
 
 #status.error {
-  color: #cf222e;
+    color: #cf222e;
 }
