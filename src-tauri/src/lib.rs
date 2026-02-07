@@ -1,62 +1,50 @@
 use std::process::Command;
-use tauri::{Manager, PhysicalPosition, TrayIconEvent};
+use tauri::{
+    menu::{MenuBuilder, MenuItemBuilder},
+    tray::TrayIconBuilder,
+};
 
-// Execute a shell command
-#[tauri::command]
-fn execute_command(command: String) -> Result<String, String> {
-    let output = if cfg!(target_os = "windows") {
-        Command::new("cmd")
-            .args(["/C", &command])
-            .output()
-    } else {
-        Command::new("sh")
-            .arg("-c")
-            .arg(&command)
-            .output()
-    };
-
-    match output {
-        Ok(output) => {
-            if output.status.success() {
-                Ok(String::from_utf8_lossy(&output.stdout).to_string())
-            } else {
-                Err(String::from_utf8_lossy(&output.stderr).to_string())
-            }
-        }
-        Err(e) => Err(format!("Failed to execute command: {}", e)),
-    }
+fn spawn_github_desktop() -> Result<(), String> {
+    Command::new("open")
+        .args(["-na", "GitHub Desktop"])
+        .spawn()
+        .map_err(|e| format!("Failed to spawn GitHub Desktop: {}", e))?;
+    Ok(())
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![execute_command])
         .setup(|app| {
-            // Handle tray icon clicks
-            let window = app.get_webview_window("main").unwrap();
-            
-            app.tray_by_id("tray").unwrap().on_tray_icon_event(move |_tray, event| {
-                if let TrayIconEvent::Click { button, .. } = event {
-                    if button == tauri::tray::MouseButton::Left {
-                        let window = window.clone();
-                        if window.is_visible().unwrap_or(false) {
-                            let _ = window.hide();
-                        } else {
-                            // Position window near cursor (menubar area)
-                            if let Ok(cursor_pos) = window.cursor_position() {
-                                let _ = window.set_position(PhysicalPosition::new(
-                                    cursor_pos.x as i32 - 150,
-                                    30,
-                                ));
-                            }
-                            let _ = window.show();
-                            let _ = window.set_focus();
+            #[cfg(target_os = "macos")]
+            app.set_activation_policy(tauri::ActivationPolicy::Accessory);
+            let spawn_item =
+                MenuItemBuilder::with_id("spawn", "Spawn GitHub Desktop").build(app)?;
+            let quit_item = MenuItemBuilder::with_id("quit", "Quit").build(app)?;
+            let menu = MenuBuilder::new(app)
+                .item(&spawn_item)
+                .separator()
+                .item(&quit_item)
+                .build()?;
+            let _tray = TrayIconBuilder::with_id("main-tray")
+                .icon(app.default_window_icon().unwrap().clone())
+                .icon_as_template(true)
+                .tooltip("Octo-Spawn")
+                .menu(&menu)
+                .show_menu_on_left_click(true)
+                .on_menu_event(|app, event| match event.id().as_ref() {
+                    "spawn" => {
+                        if let Err(e) = spawn_github_desktop() {
+                            eprintln!("Error: {}", e);
                         }
                     }
-                }
-            });
-
+                    "quit" => {
+                        app.exit(0);
+                    }
+                    _ => {}
+                })
+                .build(app)?;
             Ok(())
         })
         .run(tauri::generate_context!())
