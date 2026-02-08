@@ -1,6 +1,6 @@
 {
     "name": "octo-spawn",
-    "description": "A simple MacOS menubar app to spawn multiple GitHub Desktop windows.",
+    "description": "A simple macOS menubar app to spawn multiple GitHub Desktop windows.",
     "version": "1.0.0",
     "type": "module",
     "private": true,
