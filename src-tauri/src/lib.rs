@@ -34,8 +34,8 @@ pub fn run() {
                 .show_menu_on_left_click(true)
                 .on_menu_event(|app, event| match event.id().as_ref() {
                     "spawn" => {
-                        if let Err(e) = spawn_github_desktop() {
-                            eprintln!("Error: {}", e);
+                        if let Err(error) = spawn_github_desktop() {
+                            eprintln!("Error: {}", error);
                         }
                     }
                     "quit" => {
