@@ -1,7 +1,7 @@
 [package]
 name = "octo-spawn"
-version = "0.1.0"
-description = "A Tauri App"
+description = "A simple MacOS menubar app to spawn multiple GitHub Desktop windows."
+version = "1.0.0"
 authors = ["you"]
 edition = "2021"
 

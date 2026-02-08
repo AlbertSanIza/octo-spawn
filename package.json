@@ -1,8 +1,9 @@
 {
     "name": "octo-spawn",
-    "private": true,
-    "version": "0.1.0",
+    "description": "A simple MacOS menubar app to spawn multiple GitHub Desktop windows.",
+    "version": "1.0.0",
     "type": "module",
+    "private": true,
     "scripts": {
         "dev": "tauri dev",
         "build": "tauri build",
