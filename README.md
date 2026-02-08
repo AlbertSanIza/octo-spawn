@@ -1,3 +1,5 @@
+[![Release](https://github.com/AlbertSanIza/octo-spawn/actions/workflows/release.yml/badge.svg)](https://github.com/AlbertSanIza/octo-spawn/actions/workflows/release.yml)
+
 # 🐙 Octo-Spawn
 
 A simple macOS menubar app to spawn multiple GitHub Desktop windows.
