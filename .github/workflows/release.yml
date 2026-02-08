@@ -46,8 +46,12 @@ jobs:
             - name: Recreate DMG
               run: |
                   DMG_PATH="src-tauri/target/release/bundle/dmg"
+                  DMG_STAGE="/tmp/dmg-stage"
+                  rm -rf "$DMG_STAGE" && mkdir "$DMG_STAGE"
+                  cp -R "src-tauri/target/release/bundle/macos/octo-spawn.app" "$DMG_STAGE/"
+                  ln -s /Applications "$DMG_STAGE/Applications"
                   rm -f "$DMG_PATH"/*.dmg
-                  hdiutil create -volname "octo-spawn" -srcfolder "src-tauri/target/release/bundle/macos/octo-spawn.app" -ov -format UDZO "$DMG_PATH/octo-spawn_${{ steps.version.outputs.version }}_aarch64.dmg"
+                  hdiutil create -volname "octo-spawn" -srcfolder "$DMG_STAGE" -ov -format UDZO "$DMG_PATH/octo-spawn_${{ steps.version.outputs.version }}_aarch64.dmg"
             - name: Create release
               uses: softprops/action-gh-release@v2
               with:
