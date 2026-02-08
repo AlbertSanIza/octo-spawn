@@ -40,11 +40,17 @@ jobs:
                   sed -i '' "s/^version = \".*\"/version = \"$NEW_VERSION\"/" src-tauri/Cargo.toml
                   jq --arg v "$NEW_VERSION" '.version = $v' src-tauri/tauri.conf.json > tmp.json && mv tmp.json src-tauri/tauri.conf.json
             - name: Build Tauri app
-              uses: tauri-apps/tauri-action@v0
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: bun run tauri build
+            - name: Ad-hoc sign the app
+              run: codesign --force --deep --sign - "src-tauri/target/release/bundle/macos/octo-spawn.app"
+            - name: Recreate DMG
+              run: |
+                  DMG_PATH="src-tauri/target/release/bundle/dmg"
+                  rm -f "$DMG_PATH"/*.dmg
+                  hdiutil create -volname "octo-spawn" -srcfolder "src-tauri/target/release/bundle/macos/octo-spawn.app" -ov -format UDZO "$DMG_PATH/octo-spawn_${{ steps.version.outputs.version }}_aarch64.dmg"
+            - name: Create release
+              uses: softprops/action-gh-release@v2
               with:
-                  tagName: ${{ steps.version.outputs.tag }}
-                  releaseName: ${{ steps.version.outputs.tag }}
-                  releaseDraft: false
-                  prerelease: false
+                  tag_name: ${{ steps.version.outputs.tag }}
+                  name: ${{ steps.version.outputs.tag }}
+                  files: src-tauri/target/release/bundle/dmg/*.dmg
