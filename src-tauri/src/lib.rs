@@ -20,7 +20,7 @@ pub fn run() {
             #[cfg(target_os = "macos")]
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             let spawn_item =
-                MenuItemBuilder::with_id("spawn", "Spawn GitHub Desktop").build(app)?;
+                MenuItemBuilder::with_id("spawn", "Spawn Github Desktop").build(app)?;
             let quit_item = MenuItemBuilder::with_id("quit", "Quit").build(app)?;
             let menu = MenuBuilder::new(app)
                 .item(&spawn_item)
@@ -30,7 +30,6 @@ pub fn run() {
             let _tray = TrayIconBuilder::with_id("main-tray")
                 .icon(app.default_window_icon().unwrap().clone())
                 .icon_as_template(true)
-                .tooltip("Octo-Spawn")
                 .menu(&menu)
                 .show_menu_on_left_click(true)
                 .on_menu_event(|app, event| match event.id().as_ref() {
