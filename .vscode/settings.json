@@ -8,6 +8,18 @@
         "strings": "on"
     },
     "files.insertFinalNewline": true,
+    "files.readonlyInclude": {
+        "**/bun.lock": true
+    },
+    "files.watcherExclude": {
+        "**/bun.lock": true
+    },
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "search.exclude": {
+        "**/bun.lock": true
+    },
     "workbench.colorTheme": "Default Dark+",
     "workbench.iconTheme": "material-icon-theme"
 }
