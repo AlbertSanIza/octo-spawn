@@ -8,7 +8,11 @@ A simple macOS menubar app to spawn multiple GitHub Desktop windows.
 
 Download the latest `.dmg` from [Releases](https://github.com/AlbertSanIza/octo-spawn/releases).
 
-Since the app is unsigned, macOS may show a "damaged" warning. To fix this, run:
+Since the app is not notarized, macOS may block it on first launch. To allow it:
+
+1. Go to **System Settings > Privacy & Security** and click **Open Anyway**
+
+Or if that doesn't work, run:
 
 ```bash
 xattr -cr /Applications/octo-spawn.app
