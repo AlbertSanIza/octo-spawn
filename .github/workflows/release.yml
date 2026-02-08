@@ -1,0 +1,46 @@
+name: Release
+on:
+    push:
+        branches: [main]
+permissions:
+    contents: write
+jobs:
+    release:
+        runs-on: macos-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+            - name: Setup Rust
+              uses: dtolnay/rust-toolchain@stable
+            - name: Rust cache
+              uses: swatinem/rust-cache@v2
+              with:
+                  workspaces: src-tauri
+            - name: Install dependencies
+              run: npm install
+            - name: Bump version
+              id: version
+              run: |
+                  LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+                  VERSION=${LATEST_TAG#v}
+                  IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+                  PATCH=$((PATCH + 1))
+                  NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+                  echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+                  echo "tag=v$NEW_VERSION" >> "$GITHUB_OUTPUT"
+                  # Update version in all config files
+                  npm version "$NEW_VERSION" --no-git-tag-version
+                  sed -i '' "s/^version = \".*\"/version = \"$NEW_VERSION\"/" src-tauri/Cargo.toml
+                  jq --arg v "$NEW_VERSION" '.version = $v' src-tauri/tauri.conf.json > tmp.json && mv tmp.json src-tauri/tauri.conf.json
+            - name: Build Tauri app
+              uses: tauri-apps/tauri-action@v0
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tagName: ${{ steps.version.outputs.tag }}
+                  releaseName: ${{ steps.version.outputs.tag }}
+                  releaseDraft: false
+                  prerelease: false
