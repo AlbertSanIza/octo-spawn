@@ -33,7 +33,22 @@ fn prepare_clone_dir() -> Result<(), String> {
     Ok(())
 }
 
+fn is_github_desktop_running() -> bool {
+    Command::new("pgrep")
+        .args(["-x", "GitHub Desktop"])
+        .output()
+        .map(|o| o.status.success())
+        .unwrap_or(false)
+}
+
 fn spawn_github_desktop() -> Result<(), String> {
+    if !is_github_desktop_running() {
+        Command::new("open")
+            .args(["-a", "GitHub Desktop"])
+            .spawn()
+            .map_err(|e| format!("Failed to open GitHub Desktop: {}", e))?;
+        return Ok(());
+    }
     prepare_clone_dir()?;
     Command::new("open")
         .args([
