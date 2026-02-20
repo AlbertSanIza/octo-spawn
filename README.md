@@ -21,14 +21,14 @@ xattr -cr /Applications/octo-spawn.app
 ## Development
 
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 ## Build
 
 ```bash
-npm run build
+bun run build
 ```
 
 Output is in `src-tauri/target/release/bundle/`.
